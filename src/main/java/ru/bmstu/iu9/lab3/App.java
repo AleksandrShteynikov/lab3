@@ -30,6 +30,7 @@ public class App {
             String airportName = airport[AIRPORT_INDEX];
             airportCode = StringUtils.strip(airportCode, TRIMMER);
             airportName = StringUtils.strip(airportName, TRIMMER);
+            return 
         });
         JavaRDD<String> flightsFile = sc.textFile(FLIGHTS_FILE);
         JavaRDD<String> pureFlights = flightsFile.filter(s -> !Objects.equals(s.trim(), FLIGHTS_REDUNDANT));

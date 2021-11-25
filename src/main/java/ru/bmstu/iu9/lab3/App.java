@@ -12,6 +12,7 @@ public class App {
         SparkConf conf = new SparkConf().setAppName(APP_NAME);
         JavaSparkContext sc = new JavaSparkContext(conf);
         JavaRDD<String> airportsFile = sc.textFile(AIRPORTS_FILE);
+        
         JavaRDD<String> flightsFile = sc.textFile(FLIGHTS_FILE);
     }
 }

@@ -16,7 +16,7 @@ public class App {
         SparkConf conf = new SparkConf().setAppName(APP_NAME);
         JavaSparkContext sc = new JavaSparkContext(conf);
         JavaRDD<String> airportsFile = sc.textFile(AIRPORTS_FILE);
-        JavaRDD<String> pureAirports = airportsFile.filter(s -> !Objects.equals(s, AIRPORTS_REDUNDANT));
+        JavaRDD<String> pureAirports = airportsFile.filter(s -> !Objects.equals(String.trim(s), AIRPORTS_REDUNDANT));
         JavaPairRDD<String, String> airports = pureAirports.mapToPair();
         JavaRDD<String> flightsFile = sc.textFile(FLIGHTS_FILE);
     }

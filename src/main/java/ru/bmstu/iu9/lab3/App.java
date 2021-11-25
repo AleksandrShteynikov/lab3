@@ -5,7 +5,7 @@ import org.apache.spark.api.java.JavaRDD;
 import org.apache.spark.api.java.JavaSparkContext;
 
 public class App {
-    static final String APP_NAME = "";
+    static final String APP_NAME = "flights stats";
     static final String AIRPORTS_FILE = "L_AIRPORT_ID.csv";
     static final String FLIGHTS_FILE = "664600583_T_ONTIME_sample.csv";
     public static void main(String[] args) {

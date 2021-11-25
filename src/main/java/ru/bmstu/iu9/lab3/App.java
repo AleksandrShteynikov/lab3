@@ -5,6 +5,7 @@ import org.apache.spark.SparkConf;
 import org.apache.spark.api.java.JavaPairRDD;
 import org.apache.spark.api.java.JavaRDD;
 import org.apache.spark.api.java.JavaSparkContext;
+import scala.Tuple2;
 
 import java.util.Objects;
 
@@ -30,7 +31,7 @@ public class App {
             String airportName = airport[AIRPORT_INDEX];
             airportCode = StringUtils.strip(airportCode, TRIMMER);
             airportName = StringUtils.strip(airportName, TRIMMER);
-            return 
+            return new Tuple2<>(airportCode, airportName);
         });
         JavaRDD<String> flightsFile = sc.textFile(FLIGHTS_FILE);
         JavaRDD<String> pureFlights = flightsFile.filter(s -> !Objects.equals(s.trim(), FLIGHTS_REDUNDANT));

@@ -12,11 +12,12 @@ public class App {
     static final String AIRPORTS_FILE = "L_AIRPORT_ID.csv";
     static final String FLIGHTS_FILE = "664600583_T_ONTIME_sample.csv";
     static final String AIRPORTS_REDUNDANT = "Code,Description";
+    static final String FLIGHTS_REDUNDANT = "";
     public static void main(String[] args) {
         SparkConf conf = new SparkConf().setAppName(APP_NAME);
         JavaSparkContext sc = new JavaSparkContext(conf);
         JavaRDD<String> airportsFile = sc.textFile(AIRPORTS_FILE);
-        JavaRDD<String> pureAirports = airportsFile.filter(s -> !Objects.equals(String.trim(s), AIRPORTS_REDUNDANT));
+        JavaRDD<String> pureAirports = airportsFile.filter(s -> !Objects.equals(s.trim(), AIRPORTS_REDUNDANT));
         JavaPairRDD<String, String> airports = pureAirports.mapToPair();
         JavaRDD<String> flightsFile = sc.textFile(FLIGHTS_FILE);
     }

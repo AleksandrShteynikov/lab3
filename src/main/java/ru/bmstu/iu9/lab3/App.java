@@ -5,7 +5,7 @@ import org.apache.spark.api.java.JavaRDD;
 import org.apache.spark.api.java.JavaSparkContext;
 
 public class App {
-    final
+    static final String APP_NAME
     public static void main(String[] args) {
         SparkConf conf = new SparkConf().setAppName("");
         JavaSparkContext sc = new JavaSparkContext(conf);

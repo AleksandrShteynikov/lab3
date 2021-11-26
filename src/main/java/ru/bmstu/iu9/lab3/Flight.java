@@ -27,6 +27,10 @@ public class Flight implements Serializable {
         return this.delayTime;
     }
 
+    public float getLatePercent() {
+        return this.latePercent;
+    }
+
     public void setNumOfLateAndCancelled(int numOfLateAndCancelled) {
         this.numOfLateAndCancelled = numOfLateAndCancelled;
     }
@@ -40,6 +44,6 @@ public class Flight implements Serializable {
     }
 
     public void setLatePercent() {
-        this.latePercent = this.numOfLateAndCancelled / (double) this.totalNum;
+        this.latePercent = this.numOfLateAndCancelled / (float) this.totalNum * 100;
     }
 }

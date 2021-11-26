@@ -73,6 +73,7 @@ public class App {
             flight.setDelayTime(Math.max(delayTime1, delayTime2));
             return flight;
         });
+        JavaPairRDD<Tuple2<String, String>, Flight> Flights
         final Broadcast<Map<String, String>> airportsBroadcasted = sc.broadcast(airportsMap);
 
         //airports.saveAsTextFile("result");

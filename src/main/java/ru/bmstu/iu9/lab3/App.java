@@ -35,5 +35,6 @@ public class App {
         });
         JavaRDD<String> flightsFile = sc.textFile(FLIGHTS_FILE);
         JavaRDD<String> pureFlights = flightsFile.filter(s -> !Objects.equals(s.trim(), FLIGHTS_REDUNDANT));
+        airports.saveAsTextFile("result");
     }
 }

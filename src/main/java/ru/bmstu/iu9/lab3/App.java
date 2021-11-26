@@ -63,7 +63,9 @@ public class App {
             }
             return new Tuple2<>(new Tuple2<>(departureAirport, arrivalAirport), flight);
         });
-        JavaPairRDD<Tuple2<String, String>, Flight> reducedFlights = flights.reduceByKey();
+        JavaPairRDD<Tuple2<String, String>, Flight> reducedFlights = flights.reduceByKey((flight1, flight2) -> {
+            
+        });
         //airports.saveAsTextFile("result");
     }
 }

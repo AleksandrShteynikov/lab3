@@ -23,7 +23,8 @@ public class App {
     static final int FLIGHT_SPLIT_LIMIT = -1;
     static final int DELAY_POS = 17;
     static final int ARR_CODE_POS = 14;
-    static final int DEP_CODE_POS = 13;
+    static final int DEP_CODE_POS = 11;
+    static final int CANCELLATION_POS = 19;
     public static void main(String[] args) {
         SparkConf conf = new SparkConf().setAppName(APP_NAME);
         JavaSparkContext sc = new JavaSparkContext(conf);

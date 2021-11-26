@@ -80,8 +80,8 @@ public class App {
             String arrAirport = airportsBroadcasted.value().get(reducedFlight._1._1);
             String depAirport = airportsBroadcasted.value().get(reducedFlight._1._2);
             return new Tuple2<Tuple2<String, String>, Flight>(new Tuple2<String, String>(arrAirport, depAirport), processedFlight);*/
-            return
+            return 
         });
-        //processedFlights.saveAsTextFile("result");
+        processedFlights.saveAsTextFile("result");
     }
 }

@@ -43,6 +43,7 @@ public class App {
         JavaRDD<String> flightsFile = sc.textFile(FLIGHTS_FILE);
         JavaRDD<String> pureFlights = flightsFile.filter(s -> !s.trim().equals(FLIGHTS_REDUNDANT));
         JavaPairRDD<Tuple2<String, String>, Flight> flights = pureFlights.mapToPair(s -> {
+            Flight.totalNum += 1;
             String[] flight = s.split(SEPARATOR, FLIGHT_SPLIT_LIMIT);
             String departureAirport = flight[DEP_CODE_POS];
             String arrivalAirport = flight[ARR_CODE_POS];
@@ -50,12 +51,13 @@ public class App {
             if (!flightDelay.isEmpty()) {
                 float flightDelayNum = Float.parseFloat(flightDelay);
                 if (flightDelayNum > 0) {
+                    Flight.numOfLate += 1;
 
                 }
             } else {
                 String cancelled = flight[CANCELLATION_POS];
                 if (cancelled.equals(CANCELLATION_SYMB)) {
-                    
+                    Flight.numOfCancelled += 1;
                 }
             }
         })

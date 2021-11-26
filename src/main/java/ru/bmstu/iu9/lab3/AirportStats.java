@@ -57,6 +57,6 @@ public class AirportStats implements Serializable {
 
     public String toString() {
         return "Departed from: " + this.depAirport + "  Arrived to: " + this.arrAirport +
-                " Maximum delay time: " + this.delayTime + " Percentage of late and cancelled flights: " + this.latePercent;
+                "  Maximum delay time: " + this.delayTime + "  Percentage of late and cancelled flights: " + this.latePercent;
     }
 }

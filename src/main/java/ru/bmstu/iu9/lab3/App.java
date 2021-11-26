@@ -77,8 +77,8 @@ public class App {
         JavaRDD<AirportStats> processedFlights = reducedFlights.map(reducedFlight -> {
             AirportStats processedFlight = reducedFlight._2;
             processedFlight.setLatePercent();
-            processedFlight.setDepAirport(reducedFlight._1._1);
-            processedFlight.setArrAirport(reducedFlight._1._2);
+            processedFlight.setDepAirport(airportsBroadcasted.value().get(reducedFlight._1._1));
+            processedFlight.setArrAirport(airportsBroadcasted.value().get(reducedFlight._1._2));
             return processedFlight;
         });
         processedFlights.saveAsTextFile("result");

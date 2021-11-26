@@ -74,7 +74,9 @@ public class App {
             return flight;
         });
         final Broadcast<Map<String, String>> airportsBroadcasted = sc.broadcast(airportsMap);
-        JavaPairRDD<Tuple2<String, String>, Flight> processedFlights = reducedFlights.map();
+        JavaPairRDD<Tuple2<String, String>, Flight> processedFlights = reducedFlights.map(flight -> {
+            flight.
+        });
         //processedFlights.saveAsTextFile("result");
     }
 }

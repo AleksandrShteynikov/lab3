@@ -73,7 +73,7 @@ public class App {
             flight.setDelayTime(Math.max(delayTime1, delayTime2));
             return flight;
         });
-        final Broadcast<Map<String, String>> 
+        final Broadcast<Map<String, String>> airportsBroadcasted = 
         //airports.saveAsTextFile("result");
     }
 }

@@ -13,6 +13,6 @@ public class Flight {
     }
 
     public isCancelled() {
-
+        return this.cancelled;
     }
 }

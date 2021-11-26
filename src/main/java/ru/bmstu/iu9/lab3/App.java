@@ -77,8 +77,9 @@ public class App {
         JavaPairRDD<Tuple2<String, String>, Flight> processedFlights = reducedFlights.map(reducedFlight -> {
             Flight processedFlight = reducedFlight._2;
             processedFlight.setLatePercent();
-            return new Tuple2<>(new Tuple2<>(airportsBroadcasted.value(),
-                                             airportsBroadcasted.value(), processedFlight);
+            String arrAirport = airportsBroadcasted.value().get(reducedFlight._1._1);
+            String depAirport = airportsBroadcasted.value().get(reducedFlight._1._2);
+            //return new Tuple2<>(new Tuple2<String, String>(arrAirport, depAirport), processedFlight);
         });
         //processedFlights.saveAsTextFile("result");
     }

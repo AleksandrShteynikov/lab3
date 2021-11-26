@@ -5,6 +5,7 @@ import org.apache.spark.SparkConf;
 import org.apache.spark.api.java.JavaPairRDD;
 import org.apache.spark.api.java.JavaRDD;
 import org.apache.spark.api.java.JavaSparkContext;
+import org.apache.spark.broadcast.Broadcast;
 import scala.Tuple2;
 
 import java.util.Map;
@@ -72,7 +73,7 @@ public class App {
             flight.setDelayTime(Math.max(delayTime1, delayTime2));
             return flight;
         });
-        
+        final Broadcast<Map<String, String>> 
         //airports.saveAsTextFile("result");
     }
 }

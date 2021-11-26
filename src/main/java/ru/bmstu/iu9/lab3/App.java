@@ -74,13 +74,17 @@ public class App {
             return flight;
         });
         final Broadcast<Map<String, String>> airportsBroadcasted = sc.broadcast(airportsMap);
-        JavaPairRDD<Tuple2<String, String>, Flight> processedFlights = reducedFlights.mapValues(reducedFlight -> {
-            /*Flight processedFlight = reducedFlight._2;
+        /*JavaPairRDD<Tuple2<String, String>, Flight> processedFlights = reducedFlights.mapValues(reducedFlight -> {
+            Flight processedFlight = reducedFlight._2;
             processedFlight.setLatePercent();
             String arrAirport = airportsBroadcasted.value().get(reducedFlight._1._1);
             String depAirport = airportsBroadcasted.value().get(reducedFlight._1._2);
-            return new Tuple2<Tuple2<String, String>, Flight>(new Tuple2<String, String>(arrAirport, depAirport), processedFlight);*/
-            return 
+            return new Tuple2<Tuple2<String, String>, Flight>(new Tuple2<String, String>(arrAirport, depAirport), processedFlight);
+        });*/
+        JavaRDD<Flight> processedFlights = reducedFlights.map(reducedFlight -> {
+            Flight processedFlight = reducedFlight._2;
+            processedFlight.setLatePercent();
+            return processedFlight;
         });
         processedFlights.saveAsTextFile("result");
     }

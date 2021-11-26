@@ -74,7 +74,7 @@ public class App {
             return flight;
         });
         final Broadcast<Map<String, String>> airportsBroadcasted = sc.broadcast(airportsMap);
-        
+
         //airports.saveAsTextFile("result");
     }
 }

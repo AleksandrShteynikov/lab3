@@ -6,6 +6,7 @@ public class Flight implements Serializable {
     private int totalNum;
     private int numOfLateAndCancelled;
     private int delayTime;
+    private int 
 
     public Flight() {
         this.delayTime = 0;

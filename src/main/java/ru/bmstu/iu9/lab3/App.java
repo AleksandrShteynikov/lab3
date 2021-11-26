@@ -19,14 +19,17 @@ public class App {
     static final String TRIMMER = "\"";
     static final int CODE_INDEX = 0;
     static final int AIRPORT_INDEX = 1;
-    static final int SPLIT_LIMIT = 2;
+    static final int AIRPORT_SPLIT_LIMIT = 2;
+    static final int FLIGHT_SPLIT_LIMIT = -1;
+    static final int DELAY_POS = 17;
+    static final int CODE_POS = 14;
     public static void main(String[] args) {
         SparkConf conf = new SparkConf().setAppName(APP_NAME);
         JavaSparkContext sc = new JavaSparkContext(conf);
         JavaRDD<String> airportsFile = sc.textFile(AIRPORTS_FILE);
         JavaRDD<String> pureAirports = airportsFile.filter(s -> !Objects.equals(s.trim(), AIRPORTS_REDUNDANT));
         JavaPairRDD<String, String> airports = pureAirports.mapToPair(s -> {
-            String[] airport = s.split(SEPARATOR, SPLIT_LIMIT);
+            String[] airport = s.split(SEPARATOR, AIRPORT_SPLIT_LIMIT);
             String airportCode = airport[CODE_INDEX];
             String airportName = airport[AIRPORT_INDEX];
             airportCode = StringUtils.strip(airportCode, TRIMMER);

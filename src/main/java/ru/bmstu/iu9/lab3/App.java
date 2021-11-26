@@ -72,7 +72,7 @@ public class App {
             flight.setDelayTime(Math.max(delayTime1, delayTime2));
             return flight;
         });
-
+        
         //airports.saveAsTextFile("result");
     }
 }

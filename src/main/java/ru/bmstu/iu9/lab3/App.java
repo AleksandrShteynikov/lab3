@@ -46,7 +46,14 @@ public class App {
             String departureAirport = flight[DEP_CODE_POS];
             String arrivalAirport = flight[ARR_CODE_POS];
             String flightDelay = flight[DELAY_POS];
-            
+            if (!flightDelay.isEmpty()) {
+                float flightDelayNum = Float.parseFloat(flightDelay);
+                if (flightDelayNum > 0) {
+
+                }
+            } else {
+                String cancelled = flight[CANCELLATION_POS];
+            }
         })
         //airports.saveAsTextFile("result");
     }

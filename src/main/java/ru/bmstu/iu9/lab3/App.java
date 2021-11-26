@@ -7,8 +7,6 @@ import org.apache.spark.api.java.JavaRDD;
 import org.apache.spark.api.java.JavaSparkContext;
 import scala.Tuple2;
 
-import java.util.Objects;
-
 public class App {
     static final String APP_NAME = "flights stats";
     static final String AIRPORTS_FILE = "L_AIRPORT_ID.csv";
@@ -59,9 +57,10 @@ public class App {
                 String cancelled = flightData[CANCELLATION_POS];
                 if (cancelled.equals(CANCELLATION_SYMB)) {
                     Flight.numOfCancelled += 1;
+                    flight.setCancelled(CANCELLED);
                 }
             }
-        })
+        });
         //airports.saveAsTextFile("result");
     }
 }

@@ -82,9 +82,10 @@ public class App {
             return new Tuple2<Tuple2<String, String>, Flight>(new Tuple2<String, String>(arrAirport, depAirport), processedFlight);
         });*/
         JavaRDD<Flight> processedFlights = reducedFlights.map(reducedFlight -> {
-            Flight processedFlight = reducedFlight._2;
-            processedFlight.setLatePercent();
-            return processedFlight;
+            //Flight processedFlight = reducedFlight._2;
+            //processedFlight.setLatePercent();
+            //return processedFlight;
+            return reducedFlight._2;
         });
         processedFlights.saveAsTextFile("result");
     }

@@ -51,7 +51,7 @@ public class App {
                 float flightDelayNum = Float.parseFloat(flightDelay);
                 if (flightDelayNum > 0) {
                     Flight.numOfLate += 1;
-
+                    flight.setDelayTime((int)flightDelayNum);
                 }
             } else {
                 String cancelled = flightData[CANCELLATION_POS];
@@ -60,6 +60,7 @@ public class App {
                     flight.setCancelled(CANCELLED);
                 }
             }
+            return new Tuple2<>(new Tuple2<>(departureAirport, arrivalAirport), flight);
         });
         //airports.saveAsTextFile("result");
     }

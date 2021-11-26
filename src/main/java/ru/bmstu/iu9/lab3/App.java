@@ -44,6 +44,7 @@ public class App {
         JavaRDD<String> pureFlights = flightsFile.filter(s -> !s.trim().equals(FLIGHTS_REDUNDANT));
         JavaPairRDD<Tuple2<String, String>, Flight> flights = pureFlights.mapToPair(s -> {
             Flight flight = new Flight();
+            flight.setTotalNum(1);
             String[] flightData = s.split(SEPARATOR, FLIGHT_SPLIT_LIMIT);
             String departureAirport = flightData[DEP_CODE_POS];
             String arrivalAirport = flightData[ARR_CODE_POS];
@@ -52,18 +53,26 @@ public class App {
                 float flightDelayNum = Float.parseFloat(flightDelay);
                 if (flightDelayNum > 0) {
                     flight.setDelayTime((int)flightDelayNum);
+                    flight.setNumOfLateAndCancelled(1);
                 }
             } else {
                 String cancelled = flightData[CANCELLATION_POS];
                 if (cancelled.equals(CANCELLATION_SYMB)) {
-                    flight.setCancellation();
+                    flight.setNumOfLateAndCancelled(1);
                 }
             }
             return new Tuple2<>(new Tuple2<>(departureAirport, arrivalAirport), flight);
         });
         JavaPairRDD<Tuple2<String, String>, Flight> reducedFlights = flights.reduceByKey((flight1, flight2) -> {
-            
+            Flight flight = new Flight();
+            flight.setTotalNum(flight1.getTotalNum() + flight2.getTotalNum());
+            flight.setNumOfLateAndCancelled(flight1.getNumOfLateAndCancelled() + flight2.getNumOfLateAndCancelled());
+            int delayTime1 = flight1.getDelayTime();
+            int delayTime2 = flight2.getDelayTime();
+            flight.setDelayTime(Math.max(delayTime1, delayTime2));
+            return flight;
         });
+
         //airports.saveAsTextFile("result");
     }
 }

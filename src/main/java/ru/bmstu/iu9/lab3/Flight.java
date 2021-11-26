@@ -25,14 +25,15 @@ public class Flight implements Serializable {
         return this.delayTime;
     }
 
-    public void setCancellation() {
-        this.totalNum += 1;
-        this.numOfLateAndCancelled += 1;
+    public void setNumOfLateAndCancelled(int numOfLateAndCancelled) {
+        this.numOfLateAndCancelled = numOfLateAndCancelled;
     }
 
     public void setDelayTime(int delay) {
-        this.totalNum += 1;
-        this.numOfLateAndCancelled += 1;
         this.delayTime = delay;
+    }
+
+    public void setTotalNum(int totalNum) {
+        this.totalNum = totalNum;
     }
 }

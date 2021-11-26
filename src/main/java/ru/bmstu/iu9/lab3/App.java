@@ -75,7 +75,7 @@ public class App {
         });
         final Broadcast<Map<String, String>> airportsBroadcasted = sc.broadcast(airportsMap);
         JavaPairRDD<Tuple2<String, String>, Flight> processedFlights = reducedFlights.map(flight -> {
-            flight.
+            flight._2.setLatePercent();
         });
         //processedFlights.saveAsTextFile("result");
     }

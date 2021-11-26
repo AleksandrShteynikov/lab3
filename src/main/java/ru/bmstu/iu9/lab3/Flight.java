@@ -5,4 +5,5 @@ public class Flight {
     static int numOfLate = 0;
     static int numOfCancelled = 0;
     private int delay;
+    
 }

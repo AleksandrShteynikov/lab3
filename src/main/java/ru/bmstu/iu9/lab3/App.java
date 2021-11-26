@@ -22,7 +22,8 @@ public class App {
     static final int AIRPORT_SPLIT_LIMIT = 2;
     static final int FLIGHT_SPLIT_LIMIT = -1;
     static final int DELAY_POS = 17;
-    static final int CODE_POS = 14;
+    static final int ARR_CODE_POS = 14;
+    static final int DEP_CODE_POS = 13;
     public static void main(String[] args) {
         SparkConf conf = new SparkConf().setAppName(APP_NAME);
         JavaSparkContext sc = new JavaSparkContext(conf);
@@ -38,7 +39,9 @@ public class App {
         });
         JavaRDD<String> flightsFile = sc.textFile(FLIGHTS_FILE);
         JavaRDD<String> pureFlights = flightsFile.filter(s -> !Objects.equals(s.trim(), FLIGHTS_REDUNDANT));
-
+        JavaPairRDD<Tuple2<String, String>, Flight> flights = pureFlights.mapToPair(s -> {
+            
+        })
         //airports.saveAsTextFile("result");
     }
 }

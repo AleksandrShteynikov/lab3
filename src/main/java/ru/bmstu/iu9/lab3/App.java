@@ -87,6 +87,6 @@ public class App {
             //return processedFlight;
             return reducedFlight._2;
         });
-        processedFlights.saveAsTextFile("result");
+        reducedFlights.saveAsTextFile("result");
     }
 }

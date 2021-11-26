@@ -7,6 +7,8 @@ import org.apache.spark.api.java.JavaRDD;
 import org.apache.spark.api.java.JavaSparkContext;
 import scala.Tuple2;
 
+import java.util.Map;
+
 public class App {
     static final String APP_NAME = "flights stats";
     static final String AIRPORTS_FILE = "L_AIRPORT_ID.csv";
@@ -38,6 +40,7 @@ public class App {
             airportName = StringUtils.strip(airportName, TRIMMER);
             return new Tuple2<>(airportCode, airportName);
         });
+        Map<String, String> airportsMap = airports.collectAsMap();
         JavaRDD<String> flightsFile = sc.textFile(FLIGHTS_FILE);
         JavaRDD<String> pureFlights = flightsFile.filter(s -> !s.trim().equals(FLIGHTS_REDUNDANT));
         JavaPairRDD<Tuple2<String, String>, Flight> flights = pureFlights.mapToPair(s -> {

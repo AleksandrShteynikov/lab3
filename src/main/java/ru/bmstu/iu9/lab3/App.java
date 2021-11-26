@@ -43,8 +43,8 @@ public class App {
         Map<String, String> airportsMap = airports.collectAsMap();
         JavaRDD<String> flightsFile = sc.textFile(FLIGHTS_FILE);
         JavaRDD<String> pureFlights = flightsFile.filter(s -> !s.trim().equals(FLIGHTS_REDUNDANT));
-        JavaPairRDD<Tuple2<String, String>, Flight> flights = pureFlights.mapToPair(s -> {
-            Flight flight = new Flight();
+        JavaPairRDD<Tuple2<String, String>, AirportStats> flights = pureFlights.mapToPair(s -> {
+            AirportStats flight = new AirportStats();
             flight.setTotalNum(1);
             String[] flightData = s.split(SEPARATOR, FLIGHT_SPLIT_LIMIT);
             String departureAirport = flightData[DEP_CODE_POS];
@@ -64,8 +64,8 @@ public class App {
             }
             return new Tuple2<>(new Tuple2<>(departureAirport, arrivalAirport), flight);
         });
-        JavaPairRDD<Tuple2<String, String>, Flight> reducedFlights = flights.reduceByKey((flight1, flight2) -> {
-            Flight flight = new Flight();
+        JavaPairRDD<Tuple2<String, String>, AirportStats> reducedFlights = flights.reduceByKey((flight1, flight2) -> {
+            AirportStats flight = new AirportStats();
             flight.setTotalNum(flight1.getTotalNum() + flight2.getTotalNum());
             flight.setNumOfLateAndCancelled(flight1.getNumOfLateAndCancelled() + flight2.getNumOfLateAndCancelled());
             int delayTime1 = flight1.getDelayTime();
@@ -74,19 +74,13 @@ public class App {
             return flight;
         });
         final Broadcast<Map<String, String>> airportsBroadcasted = sc.broadcast(airportsMap);
-        /*JavaPairRDD<Tuple2<String, String>, Flight> processedFlights = reducedFlights.mapValues(reducedFlight -> {
-            Flight processedFlight = reducedFlight._2;
+        JavaRDD<AirportStats> processedFlights = reducedFlights.map(reducedFlight -> {
+            AirportStats processedFlight = reducedFlight._2;
             processedFlight.setLatePercent();
-            String arrAirport = airportsBroadcasted.value().get(reducedFlight._1._1);
-            String depAirport = airportsBroadcasted.value().get(reducedFlight._1._2);
-            return new Tuple2<Tuple2<String, String>, Flight>(new Tuple2<String, String>(arrAirport, depAirport), processedFlight);
-        });*/
-        JavaRDD<Flight> processedFlights = reducedFlights.map(reducedFlight -> {
-            //Flight processedFlight = reducedFlight._2;
-            //processedFlight.setLatePercent();
-            //return processedFlight;
-            return reducedFlight._2;
+            processedFlight.setDepAirport(reducedFlight._1._1);
+            processedFlight.setArrAirport(reducedFlight._1._2);
+            return processedFlight;
         });
-        flights.saveAsTextFile("result");
+        processedFlights.saveAsTextFile("result");
     }
 }

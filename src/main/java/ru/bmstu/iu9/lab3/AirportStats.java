@@ -2,17 +2,21 @@ package ru.bmstu.iu9.lab3;
 
 import java.io.Serializable;
 
-public class Flight implements Serializable {
+public class AirportStats implements Serializable {
     private int totalNum;
     private int numOfLateAndCancelled;
     private int delayTime;
     private float latePercent;
+    private String arrAirport;
+    private String depAirport;
 
-    public Flight() {
+    public AirportStats() {
         this.delayTime = 0;
         this.totalNum = 0;
         this.numOfLateAndCancelled = 0;
         this.latePercent = 0;
+        this.arrAirport = "";
+        this.depAirport = "";
     }
 
     public int getTotalNum() {
@@ -25,10 +29,6 @@ public class Flight implements Serializable {
 
     public int getDelayTime() {
         return this.delayTime;
-    }
-
-    public float getLatePercent() {
-        return this.latePercent;
     }
 
     public void setNumOfLateAndCancelled(int numOfLateAndCancelled) {
@@ -47,7 +47,16 @@ public class Flight implements Serializable {
         this.latePercent = this.numOfLateAndCancelled / (float) this.totalNum * 100;
     }
 
+    public void setDepAirport(String airport) {
+        this.depAirport = airport;
+    }
+
+    public void setArrAirport(String airport) {
+        this.arrAirport = airport;
+    }
+
     public String toString() {
-        return "Max delay: " + this.delayTime + ", percentage of late and cancelled: " + this.latePercent;
+        return "Departed from: " + this.depAirport + "  Arrived to: " + this.arrAirport +
+                " Maximum delay time: " + this.delayTime + " Percentage of late and cancelled flights: " + this.latePercent;
     }
 }

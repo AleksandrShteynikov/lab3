@@ -4,15 +4,19 @@ public class Flight {
     static int totalNum = 0;
     static int numOfLate = 0;
     static int numOfCancelled = 0;
-    private int delayTime;
-    private boolean cancelled;
+    private final int delayTime;
+    private final boolean cancelled;
 
     public Flight(int delay, boolean cancelled) {
         this.delayTime = delay;
         this.cancelled = cancelled;
     }
 
-    public isCancelled() {
+    public boolean isCancelled() {
         return this.cancelled;
+    }
+
+    public int getDelayTime() {
+        return this.delayTime;
     }
 }

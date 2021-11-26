@@ -26,7 +26,6 @@ public class App {
     static final int ARR_CODE_POS = 14;
     static final int DEP_CODE_POS = 11;
     static final int CANCELLATION_POS = 19;
-    static final boolean CANCELLED = true;
     public static void main(String[] args) {
         SparkConf conf = new SparkConf().setAppName(APP_NAME);
         JavaSparkContext sc = new JavaSparkContext(conf);
@@ -60,7 +59,6 @@ public class App {
                 String cancelled = flightData[CANCELLATION_POS];
                 if (cancelled.equals(CANCELLATION_SYMB)) {
                     Flight.numOfCancelled += 1;
-                    flight.setCancelled(CANCELLED);
                 }
             }
             return new Tuple2<>(new Tuple2<>(departureAirport, arrivalAirport), flight);

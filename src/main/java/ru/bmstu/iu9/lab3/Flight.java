@@ -46,4 +46,8 @@ public class Flight implements Serializable {
     public void setLatePercent() {
         this.latePercent = this.numOfLateAndCancelled / (float) this.totalNum * 100;
     }
+
+    public String toString() {
+        return "Max delay: " + this.delayTime + ", percentage of late and cancelled: " + this.latePercent;
+    }
 }

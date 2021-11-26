@@ -31,7 +31,7 @@ public class App {
         SparkConf conf = new SparkConf().setAppName(APP_NAME);
         JavaSparkContext sc = new JavaSparkContext(conf);
         JavaRDD<String> airportsFile = sc.textFile(AIRPORTS_FILE);
-        JavaRDD<String> pureAirports = airportsFile.filter(s -> !Objects.equals(s.trim(), AIRPORTS_REDUNDANT));
+        JavaRDD<String> pureAirports = airportsFile.filter(s -> !s.trim().equals(AIRPORTS_REDUNDANT));
         JavaPairRDD<String, String> airports = pureAirports.mapToPair(s -> {
             String[] airport = s.split(SEPARATOR, AIRPORT_SPLIT_LIMIT);
             String airportCode = airport[CODE_INDEX];
@@ -41,7 +41,7 @@ public class App {
             return new Tuple2<>(airportCode, airportName);
         });
         JavaRDD<String> flightsFile = sc.textFile(FLIGHTS_FILE);
-        JavaRDD<String> pureFlights = flightsFile.filter(s -> !Objects.equals(s.trim(), FLIGHTS_REDUNDANT));
+        JavaRDD<String> pureFlights = flightsFile.filter(s -> !s.trim().equals(FLIGHTS_REDUNDANT));
         JavaPairRDD<Tuple2<String, String>, Flight> flights = pureFlights.mapToPair(s -> {
             String[] flight = s.split(SEPARATOR, FLIGHT_SPLIT_LIMIT);
             String departureAirport = flight[DEP_CODE_POS];
@@ -54,6 +54,9 @@ public class App {
                 }
             } else {
                 String cancelled = flight[CANCELLATION_POS];
+                if (cancelled.equals(CANCELLATION_SYMB)) {
+                    
+                }
             }
         })
         //airports.saveAsTextFile("result");
